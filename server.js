@@ -17,8 +17,26 @@ var session      = require('express-session');
 var configDB = require('./config/database.js');
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+//mongoose.connect(configDB.url); // connect to our database
+var MongoClient = require('mongodb').MongoClient;
 
+MongoClient.connect(configDB.url, 
+        {
+            replset: { 
+                socketOptions: { 
+                    connectTimeoutMS: 30000 
+                } 
+            },
+            server: {
+                    socketOptions: {
+                        connectTimeoutMS: 500
+                    }
+                }
+        }, 
+        function(err, db) {
+                if (err) throw err;
+        }
+);
 
 require('./config/passport')(passport); // pass passport for configuration
 
