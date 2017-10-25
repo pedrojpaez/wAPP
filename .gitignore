@@ -27,6 +27,7 @@ bin/*
 **/logs/*
 npm-debug.log*
 debug.log
+yes.js
 
 # Local clones of shared content created in the build process
 **/src/shared/*
