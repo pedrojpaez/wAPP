@@ -1,0 +1,37 @@
+launchConfigurations/
+build
+
+bower_components/*
+.DS_Store
+*.env
+*.swp
+*.swo
+
+# Compiled/minified artifacts
+**/build/*
+bin/*
+**.zip
+**.sass-cache/
+**.css.map
+
+# NPM install should be used to install dependencies
+**/node_modules/
+
+# backup, config, credential, session files need not be controlled
+**/.*.json
+**_cred.json
+**.backup
+
+# Temporary and log files
+**/temp/*
+**/logs/*
+npm-debug.log*
+debug.log
+
+# Local clones of shared content created in the build process
+**/src/shared/*
+
+# Crap from various IDEs
+**/.idea/workspace.xml
+**/.idea/shelf
+**/.vscode/
