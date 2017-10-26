@@ -1,5 +1,3 @@
-// server.js
-
 // set up ======================================================================
 // get all the tools we need
 var express  = require('express');
@@ -17,26 +15,26 @@ var session      = require('express-session');
 var configDB = require('./config/database.js');
 
 // configuration ===============================================================
-//mongoose.connect(configDB.url); // connect to our database
-var MongoClient = require('mongodb').MongoClient;
-
-MongoClient.connect(configDB.url, 
-        {
-            replset: { 
-                socketOptions: { 
-                    connectTimeoutMS: 30000 
-                } 
-            },
-            server: {
-                    socketOptions: {
-                        connectTimeoutMS: 500
-                    }
-                }
-        }, 
-        function(err, db) {
-                if (err) throw err;
+var option = {
+    server: {
+        socketOptions: {
+            keepAlive: 300000,
+            connectTimeoutMS: 30000
         }
-);
+    },
+    replset: {
+        socketOptions: {
+            keepAlive: 300000,
+            connectTimeoutMS: 30000
+        }
+    }
+};
+mongoose.connect(configDB.url, option).then(function(){
+    //connected successfully
+}, function(err) {
+    //err handle
+});
+// connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -48,7 +46,7 @@ app.use(bodyParser()); // get information from html forms
 app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
-app.use(session({ secret: 'holaholahola' })); // session secret
+app.use(session({ secret: 'ilovescotchscotchyscotchscotch' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
