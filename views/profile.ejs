@@ -13,7 +13,7 @@
 <div class="container">
 
     <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> My Home Page</h1>
+        <h1><span class="fa fa-icon"></span> Today's NY Times TOP Themes</h1>
         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
     </div>
 
@@ -27,7 +27,9 @@
                     <p>
                         <strong>Welcome back !</strong><br>
                     </p>
-
+                    <p>
+                    <input id="testbutton" type="button" value="Get me the news!" />
+                    </p>
             </div>
         </div>
 
@@ -35,9 +37,9 @@
     <div>
     <div class="col-sm-6">
         <div class="well" style="padding:5px;display:table;">
-            <input id="testbutton" type="button" value="Get me the news!" />
-            <p id="results">Results for today: </p>
-            <table id="tblProgs" class="table table-bordered table-hover table-striped dataTable">
+            
+            <h1 id="results">Results for today KMEANS: </h1>
+            <table id="tblProgs1" class="table table-bordered table-hover table-striped dataTable">
                 <thead>
                     <tr>
                         
@@ -46,6 +48,17 @@
                 <tbody>
 
                 </tbody>
+                </table>
+                <h1 id="results">Results for today NMF: </h1>
+                <table id="tblProgs2" class="table table-bordered table-hover table-striped dataTable">
+                        <thead>
+                            <tr>
+                                
+                        </tr>
+                        </thead>
+                        <tbody>
+        
+                        </tbody>
                 </table>
         
             </div>
@@ -64,13 +77,22 @@ $(document).ready(function() {
             url: 'https://pysrv.eu-de.mybluemix.net/',
             dataType: 'json',
             success: function(data) {
-                $('tbody').empty();
+                $("#tblProgs1").empty();
                 for (var i in data.clusters) {
-                    $('tbody').append('<tr><th width="30%" style = "font-size:14px">Theme of the day '+(parseInt(i)+1)+'</p>');
+                    $("#tblProgs1").append('<tr><th width="30%" style = "font-size:14px">Theme of the day '+(parseInt(i)+1)+'</p>');
                     for(var j in data.clusters[i]) {
-                        $('tbody').append('<th width="15%" style = "font-size:12px">'+data.clusters[i][j]+'</th>');
+                        $("#tblProgs1").append('<th width="15%" style = "font-size:12px">'+data.clusters[i][j]+'</th>');
                     }
-                    $('tbody').append('</tr>');
+                    $("#tblProgs1").append('</tr>');
+                }
+
+                $("#tblProgs2").empty();
+                for (var i in data.topics) {
+                    $("#tblProgs2").append('<tr><th width="30%" style = "font-size:14px">Theme of the day '+(parseInt(i)+1)+'</p>');
+                    for(var j in data.topics[i]) {
+                        $("#tblProgs2").append('<th width="15%" style = "font-size:12px">'+data.topics[i][j]+'</th>');
+                    }
+                    $("#tblProgs2").append('</tr>');
                 }
             },
              error: function() {
