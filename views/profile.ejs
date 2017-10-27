@@ -19,22 +19,66 @@
 
     <div class="row">
 
-        <!-- GOOGLE INFORMATION -->
+        <!-- LOCAL INFORMATION -->
         <div class="col-sm-6">
             <div class="well">
-                <h3 class="text-danger"><span class="fa fa-google-plus"></span> Google</h3>
+                <h3><span class="fa fa-user"></span> <%= user.local.email %> </h3>
 
                     <p>
-                        <strong>Welcome back</strong>: <%= user.google.name %>
+                        <strong>Welcome back !</strong><br>
                     </p>
 
             </div>
         </div>
 
     </div>
+    <div>
+    <div class="col-sm-6">
+        <div class="well" style="padding:5px;display:table;">
+            <input id="testbutton" type="button" value="Get me the news!" />
+            <p id="results">Results for today: </p>
+            <table id="tblProgs" class="table table-bordered table-hover table-striped dataTable">
+                <thead>
+                    <tr>
+                        
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+                </table>
+        
+            </div>
+        </div>
+    </div>
 
 </div>
 </body>
 </html>
 
+<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+    $("#testbutton").click(function() {
+        $.ajax({
+            url: 'https://pysrv.eu-de.mybluemix.net/',
+            dataType: 'json',
+            success: function(data) {
+                $('tbody').empty();
+                for (var i in data.clusters) {
+                    $('tbody').append('<tr><th width="30%" style = "font-size:14px">Theme of the day '+(parseInt(i)+1)+'</p>');
+                    for(var j in data.clusters[i]) {
+                        $('tbody').append('<th width="15%" style = "font-size:12px">'+data.clusters[i][j]+'</th>');
+                    }
+                    $('tbody').append('</tr>');
+                }
+            },
+             error: function() {
+                $("#results").append("error");
+                alert('Not good: got an error');
+            }
+        });
+    });
+});
+</script>
 
