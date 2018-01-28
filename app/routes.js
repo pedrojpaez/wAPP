@@ -8,9 +8,7 @@ module.exports = function(app, passport) {
             res.render('index.ejs'); // load the index.ejs file
         });
     
-        // =====================================
-        // LOGIN ===============================
-        // =====================================
+
         // show the login form
         app.get('/login', function(req, res) {
     
@@ -25,9 +23,7 @@ module.exports = function(app, passport) {
             failureFlash : true // allow flash messages
         }));
     
-        // =====================================
-        // SIGNUP ==============================
-        // =====================================
+
         // show the signup form
         app.get('/signup', function(req, res) {
     
@@ -42,9 +38,7 @@ module.exports = function(app, passport) {
             failureFlash : true // allow flash messages
         }));
     
-        // =====================================
-        // PROFILE SECTION =====================
-        // =====================================
+
         // we will want this protected so you have to be logged in to visit
         // we will use route middleware to verify this (the isLoggedIn function)
         app.get('/profile', isLoggedIn, function(req, res) {
